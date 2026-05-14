@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="QuizGenerator/QuizGenerator.csproj" />
+  <Project Path="QuizModel/QuizModel.csproj" />
+</Solution>
