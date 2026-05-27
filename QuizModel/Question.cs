@@ -8,6 +8,7 @@ namespace QuizModel
 {
     public class Question
     {
+        public Guid Id { get; }
         public String QuestionContent { get; set; }
 
         private String correctAnswer;
@@ -32,7 +33,11 @@ namespace QuizModel
         }
 
         public Question(String questionContent, String correctAnswer, List<String> incorrectAnswers)
+            : this(Guid.NewGuid(), questionContent, correctAnswer, incorrectAnswers) {}
+
+        public Question(Guid id, String questionContent, String correctAnswer, List<String> incorrectAnswers)
         {
+            this.Id = id;
             this.QuestionContent = questionContent;
             this.CorrectAnswer = correctAnswer;
             this.IncorrectAnswers = incorrectAnswers ?? throw new ArgumentNullException(nameof(incorrectAnswers));

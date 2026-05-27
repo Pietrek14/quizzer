@@ -1,6 +1,6 @@
-﻿namespace QuizGenerator
+﻿namespace QuizGenerator.Views
 {
-    partial class MainForm
+    partial class QuizListView
     {
         /// <summary>
         ///  Required designer variable.
@@ -32,6 +32,8 @@
             lblSubtitle = new Label();
             lbxQuizzes = new ListBox();
             btnAddQuiz = new Button();
+            btnLoadQuiz = new Button();
+            ofdLoadQuiz = new OpenFileDialog();
             SuspendLayout();
             // 
             // lblTitle
@@ -61,8 +63,9 @@
             lbxQuizzes.FormattingEnabled = true;
             lbxQuizzes.Location = new Point(32, 128);
             lbxQuizzes.Name = "lbxQuizzes";
-            lbxQuizzes.Size = new Size(726, 304);
+            lbxQuizzes.Size = new Size(726, 289);
             lbxQuizzes.TabIndex = 2;
+            lbxQuizzes.SelectedIndexChanged += quizSelectedForEdit;
             // 
             // btnAddQuiz
             // 
@@ -80,18 +83,34 @@
             btnAddQuiz.TabIndex = 3;
             btnAddQuiz.Text = "+";
             btnAddQuiz.UseVisualStyleBackColor = false;
+            btnAddQuiz.Click += addQuizButtonClick;
             // 
-            // MainForm
+            // btnLoadQuiz
+            // 
+            btnLoadQuiz.Location = new Point(628, 423);
+            btnLoadQuiz.Name = "btnLoadQuiz";
+            btnLoadQuiz.Size = new Size(130, 23);
+            btnLoadQuiz.TabIndex = 4;
+            btnLoadQuiz.Text = "Wczytaj Quiz z dysku";
+            btnLoadQuiz.UseVisualStyleBackColor = true;
+            btnLoadQuiz.Click += loadQuizButtonClick;
+            // 
+            // ofdLoadQuiz
+            // 
+            ofdLoadQuiz.FileName = "openFileDialog1";
+            // 
+            // QuizListView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.DimGray;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnLoadQuiz);
             Controls.Add(btnAddQuiz);
             Controls.Add(lbxQuizzes);
             Controls.Add(lblSubtitle);
             Controls.Add(lblTitle);
-            Name = "MainForm";
+            Name = "QuizListView";
             Text = "Quizzer -- Kreator Quizów";
             ResumeLayout(false);
             PerformLayout();
@@ -103,5 +122,7 @@
         private Label lblSubtitle;
         private ListBox lbxQuizzes;
         private Button btnAddQuiz;
+        private Button btnLoadQuiz;
+        private OpenFileDialog ofdLoadQuiz;
     }
 }
