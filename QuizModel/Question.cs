@@ -10,46 +10,22 @@ namespace QuizModel
     {
         public Guid Id { get; }
         public String QuestionContent { get; set; }
+        public List<Answer> Answers { get; }
 
-        private String correctAnswer;
-        public String CorrectAnswer {
-            get {
-                return correctAnswer;
-            }
-            set {
-                if (IncorrectAnswers != null && IncorrectAnswers.Contains(value))
-                    throw new ArgumentException("Correct answer cannot be the same as any of the incorrect answers.");
-                correctAnswer = value;
-            }
-        }
-        public List<String> IncorrectAnswers { get; }
+        public Question(String questionContent, List<Answer> answers)
+            : this(Guid.NewGuid(), questionContent, answers) {}
 
-        public List<String> AllAnswers {
-            get {
-                var allAnswers = new List<String>(new String[] { correctAnswer });
-                allAnswers.AddRange(IncorrectAnswers);
-                return allAnswers;
-            }
-        }
-
-        public Question(String questionContent, String correctAnswer, List<String> incorrectAnswers)
-            : this(Guid.NewGuid(), questionContent, correctAnswer, incorrectAnswers) {}
-
-        public Question(Guid id, String questionContent, String correctAnswer, List<String> incorrectAnswers)
+        public Question(Guid id, String questionContent, List<Answer> answers)
         {
             this.Id = id;
             this.QuestionContent = questionContent;
-            this.CorrectAnswer = correctAnswer;
-            this.IncorrectAnswers = incorrectAnswers ?? throw new ArgumentNullException(nameof(incorrectAnswers));
 
-            if (incorrectAnswers.Contains(correctAnswer))
-                throw new ArgumentException("Incorrect answers cannot contain the correct answer.");
+            if(answers == null || answers.Count != 4)
+            {
+                throw new ArgumentException("A question must have exactly four answers.");
+            }
 
-            if (incorrectAnswers.Count == 0)
-                throw new ArgumentException("There must be at least one incorrect answer.");
-
-            if (incorrectAnswers.Count > 3)
-                throw new ArgumentException("There can be at most three incorrect answers.");
+            this.Answers = answers;
         }
     }
 }
