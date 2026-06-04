@@ -11,9 +11,9 @@ namespace QuizGenerator.Presenters.QuizList
     public class QuizListPresenter
     {
         private IQuizListView view;
-        private GuidRepository<Quiz> quizList;
+        private Repository<Quiz> quizList;
 
-        public QuizListPresenter(IQuizListView view, GuidRepository<Quiz> quizList)
+        public QuizListPresenter(IQuizListView view, Repository<Quiz> quizList)
         {
             this.view = view;
             this.quizList = quizList;

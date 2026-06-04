@@ -5,18 +5,18 @@ using System.Text;
 
 namespace QuizModel.Containers
 {
-    public class ArrayRepository<T>
+    public class ObservedArray<T>
     {
         public event Action<int, T>? ItemUpdated;
 
         public T[] Items { get; }
 
-        public ArrayRepository(int size)
+        public ObservedArray(int size)
         {
             Items = new T[size];
         }
 
-        public ArrayRepository(IEnumerable<T> items)
+        public ObservedArray(IEnumerable<T> items)
         {
             Items = items.ToArray();
         }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace QuizModel.Containers
 {
-    public class GuidRepository<T> where T : IGuided
+    public class Repository<T> where T : IGuided
     {
         public event Action<T>? ItemAdded;
         public event Action<T>? ItemUpdated;

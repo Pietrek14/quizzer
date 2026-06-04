@@ -11,7 +11,7 @@ namespace QuizModel
     {
         public Guid Id { get; }
         public String QuestionContent { get; set; }
-        public ArrayRepository<Answer> Answers { get; set; }
+        public ObservedArray<Answer> Answers { get; set; }
         public Question(String questionContent, IEnumerable<Answer> answers)
             : this(Guid.NewGuid(), questionContent, answers) {}
 
@@ -27,7 +27,7 @@ namespace QuizModel
                 throw new ArgumentException("A question must have exactly four answers.");
             }
 
-            this.Answers = new ArrayRepository<Answer>(answersArr);
+            this.Answers = new ObservedArray<Answer>(answersArr);
         }
     }
 }

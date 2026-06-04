@@ -12,10 +12,10 @@ namespace QuizGenerator.Presenters.SingleQuiz
     public class SingleQuizPresenter
     {
         private ISingleQuizView view;
-        private GuidRepository<Quiz> quizList;
+        private Repository<Quiz> quizList;
         private Quiz quiz;
 
-        public SingleQuizPresenter(ISingleQuizView view, GuidRepository<Quiz> quizList, Quiz? quiz)
+        public SingleQuizPresenter(ISingleQuizView view, Repository<Quiz> quizList, Quiz? quiz)
         {
             this.view = view;
             this.quizList = quizList;

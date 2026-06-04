@@ -11,7 +11,7 @@ namespace QuizModel
     {
         public Guid Id { get; }
         public string Name { get; set; }
-        public GuidRepository<Question> Questions { get; set; } = new GuidRepository<Question>();
+        public Repository<Question> Questions { get; set; } = new Repository<Question>();
 
         public Quiz() : this("") { }
         public Quiz(String name) : this(Guid.NewGuid(), name) { }

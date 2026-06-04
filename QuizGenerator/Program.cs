@@ -16,7 +16,7 @@ namespace QuizGenerator
             ApplicationConfiguration.Initialize();
 
             var view = new QuizListView();
-            var quizList = new GuidRepository<Quiz>();
+            var quizList = new Repository<Quiz>();
             var presenter = new QuizListPresenter(view, quizList);
 
             Application.Run(view);
