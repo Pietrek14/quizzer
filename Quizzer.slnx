@@ -1,4 +1,4 @@
 <Solution>
   <Project Path="QuizGenerator/QuizGenerator.csproj" />
-  <Project Path="QuizModel/QuizModel.csproj" Id="85c6f47c-ff21-4aac-ad6f-68d86ed75c7f" />
+  <Project Path="QuizModelNew/QuizModel.csproj" Id="72914614-42ed-41a9-b736-cda5262bb191" />
 </Solution>

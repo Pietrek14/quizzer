@@ -1,6 +1,7 @@
-using QuizGenerator.Model;
 using QuizGenerator.Presenters.QuizList;
 using QuizGenerator.Views;
+using QuizModel;
+using QuizModel.Containers;
 
 namespace QuizGenerator
 {
@@ -15,8 +16,8 @@ namespace QuizGenerator
             ApplicationConfiguration.Initialize();
 
             var view = new QuizListView();
-            var model = new QuizListModel();
-            var presenter = new QuizListPresenter(view, model);
+            var quizList = new GuidRepository<Quiz>();
+            var presenter = new QuizListPresenter(view, quizList);
 
             Application.Run(view);
         }

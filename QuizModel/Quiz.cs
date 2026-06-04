@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace QuizModel
 {
-    public class Quiz
+    public class Quiz : IGuided
     {
         public Guid Id { get; }
         public string Name { get; set; }
-        public List<Question> Questions { get; set; } = new List<Question>();
+        public Repository<Question> Questions { get; set; } = new Repository<Question>();
 
         public Quiz() {
             this.Id = Guid.NewGuid();

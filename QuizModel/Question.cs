@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace QuizModel
 {
-    public class Question
+    public class Question : IGuided
     {
         public Guid Id { get; }
         public String QuestionContent { get; set; }
-        public List<Answer> Answers { get; }
-
+        public Repository<Answer> Answers { get; set; } = new Repository<Answer>();
         public Question(String questionContent, List<Answer> answers)
             : this(Guid.NewGuid(), questionContent, answers) {}
 
@@ -25,7 +24,10 @@ namespace QuizModel
                 throw new ArgumentException("A question must have exactly four answers.");
             }
 
-            this.Answers = answers;
+            foreach (var answer in answers)
+            {
+                this.Answers.AddItem(answer);
+            }
         }
     }
 }

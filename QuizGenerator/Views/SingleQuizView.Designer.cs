@@ -34,6 +34,8 @@
             btnAddQuiz = new Button();
             btnEditQuiz = new Button();
             btnDeleteQuiz = new Button();
+            btnSaveQuiz = new Button();
+            sfdSaveQuiz = new SaveFileDialog();
             SuspendLayout();
             // 
             // tbxQuizName
@@ -44,6 +46,7 @@
             tbxQuizName.PlaceholderText = "Nazwa Quizu";
             tbxQuizName.Size = new Size(242, 32);
             tbxQuizName.TabIndex = 0;
+            tbxQuizName.TextChanged += quizNameChanged;
             // 
             // lbxQuestions
             // 
@@ -52,6 +55,7 @@
             lbxQuestions.Name = "lbxQuestions";
             lbxQuestions.Size = new Size(704, 274);
             lbxQuestions.TabIndex = 1;
+            lbxQuestions.SelectedIndexChanged += questionSelectedForEdit;
             // 
             // btnAddQuestion
             // 
@@ -66,6 +70,7 @@
             btnAddQuestion.TabIndex = 2;
             btnAddQuestion.Text = "+";
             btnAddQuestion.UseVisualStyleBackColor = false;
+            btnAddQuestion.Click += addQuestionButtonClick;
             // 
             // btnAddQuiz
             // 
@@ -75,6 +80,7 @@
             btnAddQuiz.TabIndex = 3;
             btnAddQuiz.Text = "Dodaj Quiz";
             btnAddQuiz.UseVisualStyleBackColor = true;
+            btnAddQuiz.Click += addQuiz;
             // 
             // btnEditQuiz
             // 
@@ -84,6 +90,7 @@
             btnEditQuiz.TabIndex = 4;
             btnEditQuiz.Text = "Edytuj Quiz";
             btnEditQuiz.UseVisualStyleBackColor = true;
+            btnEditQuiz.Click += editQuiz;
             // 
             // btnDeleteQuiz
             // 
@@ -93,6 +100,17 @@
             btnDeleteQuiz.TabIndex = 5;
             btnDeleteQuiz.Text = "Usuń Quiz";
             btnDeleteQuiz.UseVisualStyleBackColor = true;
+            btnDeleteQuiz.Click += deleteQuiz;
+            // 
+            // btnSaveQuiz
+            // 
+            btnSaveQuiz.Location = new Point(662, 415);
+            btnSaveQuiz.Name = "btnSaveQuiz";
+            btnSaveQuiz.Size = new Size(86, 23);
+            btnSaveQuiz.TabIndex = 6;
+            btnSaveQuiz.Text = "Zapisz Quiz";
+            btnSaveQuiz.UseVisualStyleBackColor = true;
+            btnSaveQuiz.Click += saveQuizToFile;
             // 
             // SingleQuizView
             // 
@@ -100,6 +118,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.DimGray;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnSaveQuiz);
             Controls.Add(btnDeleteQuiz);
             Controls.Add(btnEditQuiz);
             Controls.Add(btnAddQuiz);
@@ -120,5 +139,7 @@
         private Button btnAddQuiz;
         private Button btnEditQuiz;
         private Button btnDeleteQuiz;
+        private Button btnSaveQuiz;
+        private SaveFileDialog sfdSaveQuiz;
     }
 }

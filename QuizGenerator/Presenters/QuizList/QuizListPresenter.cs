@@ -1,7 +1,7 @@
-﻿using QuizGenerator.Model;
-using QuizGenerator.Presenters.QuizList.Contracts;
+﻿using QuizGenerator.Presenters.QuizList.Contracts;
 using QuizGenerator.Presenters.SingleQuiz;
 using QuizModel;
+using QuizModel.Containers;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,16 +11,17 @@ namespace QuizGenerator.Presenters.QuizList
     public class QuizListPresenter
     {
         private IQuizListView view;
-        private QuizListModel model;
+        private GuidRepository<Quiz> quizList;
 
-        public QuizListPresenter(IQuizListView view, QuizListModel model)
+        public QuizListPresenter(IQuizListView view, GuidRepository<Quiz> quizList)
         {
             this.view = view;
-            this.model = model;
+            this.quizList = quizList;
 
-            Action<Quiz> updateQuizList = quiz => this.view.UpdateQuizList(this.model.Quizzes.Select(QuizToDto));
-            this.model.QuizAdded += updateQuizList;
-            this.model.QuizRemoved += updateQuizList;
+            Action<Quiz> updateQuizList = quiz => this.view.UpdateQuizList(this.quizList.Items.Values.Select(QuizToDto));
+            this.quizList.ItemAdded += updateQuizList;
+            this.quizList.ItemUpdated += updateQuizList;
+            this.quizList.ItemRemoved += updateQuizList;
 
             this.view.AddQuiz += () => OpenQuizForm(null);
             this.view.OpenQuiz += OpenQuizFormForEdition;
@@ -34,7 +35,7 @@ namespace QuizGenerator.Presenters.QuizList
 
         private void OpenQuizFormForEdition(QuizDto quizDto)
         {
-            Quiz? quiz = this.model.Quizzes.FirstOrDefault(q => q.Id == quizDto.Id);
+            Quiz? quiz = this.quizList.Items[quizDto.Id];
             if (quiz != null)
             {
                 OpenQuizForm(quiz);
@@ -48,7 +49,7 @@ namespace QuizGenerator.Presenters.QuizList
         private void OpenQuizForm(Quiz? quiz)
         {
             var singleQuizView = this.view.GetSingleQuizView();
-            var singleQuizPresenter = new SingleQuizPresenter(singleQuizView, quiz);
+            var singleQuizPresenter = new SingleQuizPresenter(singleQuizView, quizList, quiz);
         }
 
         private void LoadQuiz(string quizFilePath)

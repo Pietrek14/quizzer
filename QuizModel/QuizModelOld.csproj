@@ -40,8 +40,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Answer.cs" />
+    <Compile Include="IGuided.cs" />
     <Compile Include="Question.cs" />
     <Compile Include="Quiz.cs" />
+    <Compile Include="Repository.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

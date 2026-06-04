@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace QuizModel
 {
-    public class Answer
+    public class Answer : IGuided
     {
         public Guid Id { get; }
         public string Text { get; set; }
