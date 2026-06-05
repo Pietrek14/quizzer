@@ -1,9 +1,12 @@
 ﻿using QuizGenerator.Presenters.QuizList.Contracts;
 using QuizGenerator.Presenters.SingleQuiz;
+using QuizGenerator.Services.Serialization;
 using QuizModel;
 using QuizModel.Containers;
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace QuizGenerator.Presenters.QuizList
@@ -54,6 +57,24 @@ namespace QuizGenerator.Presenters.QuizList
 
         private void LoadQuiz(string quizFilePath)
         {
+            var serializer = new QuizSerializer(new PlaintextStrategy());
+
+            try
+            {
+                var quiz = serializer.Deserialize(quizFilePath);
+
+                if(quizList.Items.ContainsKey(quiz.Id))
+                {
+                    this.view.DisplayError("Ten quiz został już dodany do listy");
+                    return;
+                }
+
+                this.quizList.AddItem(quiz);
+            }
+            catch (Exception ex) when (ex is SerializationException or CryptographicException)
+            {
+                this.view.DisplayError($"Nie można załadować quizu w lokalizacji {quizFilePath}");
+            }
         }
     }
 }

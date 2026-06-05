@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace QuizModel
@@ -13,7 +14,7 @@ namespace QuizModel
         public String QuestionContent { get; set; }
         public ObservedArray<Answer> Answers { get; set; }
         public Question(String questionContent, IEnumerable<Answer> answers)
-            : this(Guid.NewGuid(), questionContent, answers) {}
+            : this(Guid.NewGuid(), questionContent, answers) { }
 
         public Question(Guid id, String questionContent, IEnumerable<Answer> answers)
         {
@@ -22,12 +23,26 @@ namespace QuizModel
 
             var answersArr = answers.ToArray();
 
-            if(answers == null || answersArr.Length != 4)
+            if (answers == null || answersArr.Length != 4)
             {
                 throw new ArgumentException("A question must have exactly four answers.");
             }
 
             this.Answers = new ObservedArray<Answer>(answersArr);
+        }
+
+        [JsonConstructor]
+        public Question(Guid id, String questionContent, ObservedArray<Answer> answers)
+        {
+            this.Id = id;
+            this.QuestionContent = questionContent;
+
+            if (answers == null || answers.Items.Length != 4)
+            {
+                throw new ArgumentException("A question must have exactly four answers.");
+            }
+
+            this.Answers = answers;
         }
     }
 }

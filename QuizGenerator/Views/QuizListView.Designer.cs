@@ -97,7 +97,7 @@
             // 
             // ofdLoadQuiz
             // 
-            ofdLoadQuiz.FileName = "openFileDialog1";
+            ofdLoadQuiz.DefaultExt = "qz";
             // 
             // QuizListView
             // 

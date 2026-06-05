@@ -112,6 +112,12 @@
             btnSaveQuiz.UseVisualStyleBackColor = true;
             btnSaveQuiz.Click += saveQuizToFile;
             // 
+            // sfdSaveQuiz
+            // 
+            sfdSaveQuiz.DefaultExt = "qz";
+            sfdSaveQuiz.FileName = "NowyQuiz";
+            sfdSaveQuiz.Title = "Zapisz Quiz";
+            // 
             // SingleQuizView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);

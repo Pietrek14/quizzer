@@ -45,7 +45,7 @@ namespace QuizGenerator.Views
             btnAddQuiz.Enabled = !enabled;
             btnEditQuiz.Enabled = enabled;
             btnDeleteQuiz.Enabled = enabled;
-            btnAddQuestion.Visible = !enabled;
+            btnAddQuiz.Visible = !enabled;
             btnEditQuiz.Visible = enabled;
             btnDeleteQuiz.Visible = enabled;
         }

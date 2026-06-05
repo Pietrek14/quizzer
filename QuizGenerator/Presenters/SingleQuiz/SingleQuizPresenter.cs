@@ -1,10 +1,12 @@
 ﻿using QuizGenerator.Presenters.SingleQuestion;
 using QuizGenerator.Presenters.SingleQuiz.Contracts;
+using QuizGenerator.Services.Serialization;
 using QuizGenerator.Views;
 using QuizModel;
 using QuizModel.Containers;
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace QuizGenerator.Presenters.SingleQuiz
@@ -86,7 +88,7 @@ namespace QuizGenerator.Presenters.SingleQuiz
 
         private void AddQuiz()
         {
-            QuizValidator validator = new QuizValidator();
+            var validator = new QuizValidator();
             var error = validator.ValidateQuiz(this.quiz);
             if (error == null)
             {
@@ -101,7 +103,7 @@ namespace QuizGenerator.Presenters.SingleQuiz
 
         private void UpdateQuiz()
         {
-            QuizValidator validator = new QuizValidator();
+            var validator = new QuizValidator();
             var error = validator.ValidateQuiz(this.quiz);
             if (error == null)
             {
@@ -122,7 +124,25 @@ namespace QuizGenerator.Presenters.SingleQuiz
 
         private void SaveQuizToFile(string quizFilePath)
         {
+            var serializer = new QuizSerializer(new PlaintextStrategy());
+            var validator = new QuizValidator();
 
+            var error = validator.ValidateQuiz(this.quiz);
+            if (error == null)
+            {
+                try
+                {
+                    serializer.Serialize(this.quiz, quizFilePath);
+                }
+                catch(CryptographicException)
+                {
+                    this.view.DisplayError("Zapisanie quizu do pliku nie powiodło się :(");
+                }
+            }
+            else
+            {
+                this.view.DisplayError(error);
+            }
         }
     }
 }
