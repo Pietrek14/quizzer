@@ -1,4 +1,5 @@
-﻿using QuizGenerator.Presenters.SingleQuestion.Contracts;
+﻿using QuizGenerator.Presenters.Common.Contracts;
+using QuizGenerator.Presenters.SingleQuestion.Contracts;
 using QuizGenerator.Presenters.SingleQuiz.Contracts;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace QuizGenerator.Views
         public event Action? AddQuiz;
         public event Action? UpdateQuiz;
         public event Action? DeleteQuiz;
-        public event Action<string>? SaveQuizToFile;
+        public event Action<string, EncryptionStrategyDto>? SaveQuizToFile;
 
         public SingleQuizView()
         {
@@ -100,7 +101,13 @@ namespace QuizGenerator.Views
             if (sfdSaveQuiz.ShowDialog() == DialogResult.OK)
             {
                 String quizFilePath = sfdSaveQuiz.FileName;
-                this.SaveQuizToFile?.Invoke(quizFilePath);
+                EncryptionStrategyDto encryptionStrategy = cmbEncryptionStrategy.SelectedItem switch {
+                    "Plaintext" => EncryptionStrategyDto.Plaintext,
+                    "AES" => EncryptionStrategyDto.Aes,
+                    "3DES" => EncryptionStrategyDto.TripleDes,
+                    _ => EncryptionStrategyDto.Plaintext
+                };
+                this.SaveQuizToFile?.Invoke(quizFilePath, encryptionStrategy);
             }
         }
     }

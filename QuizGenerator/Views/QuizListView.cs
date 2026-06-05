@@ -1,3 +1,4 @@
+using QuizGenerator.Presenters.Common.Contracts;
 using QuizGenerator.Presenters.QuizList.Contracts;
 using QuizGenerator.Presenters.SingleQuiz.Contracts;
 
@@ -6,7 +7,7 @@ namespace QuizGenerator.Views
     public partial class QuizListView : Form, IQuizListView
     {
         public event Action? AddQuiz;
-        public event Action<string>? LoadQuiz;
+        public event Action<string, EncryptionStrategyDto>? LoadQuiz;
         public event Action<QuizDto>? OpenQuiz;
 
         public QuizListView()
@@ -45,7 +46,13 @@ namespace QuizGenerator.Views
             if(ofdLoadQuiz.ShowDialog() == DialogResult.OK)
             {
                 String quizFilePath = ofdLoadQuiz.FileName;
-                LoadQuiz?.Invoke(quizFilePath);
+                EncryptionStrategyDto encryptionStrategy = cmbEncryptionStrategy.SelectedItem switch {
+                    "Plaintext" => EncryptionStrategyDto.Plaintext,
+                    "AES" => EncryptionStrategyDto.Aes,
+                    "3DES" => EncryptionStrategyDto.TripleDes,
+                    _ => EncryptionStrategyDto.Plaintext
+                };
+                LoadQuiz?.Invoke(quizFilePath, encryptionStrategy);
             }
         }
 

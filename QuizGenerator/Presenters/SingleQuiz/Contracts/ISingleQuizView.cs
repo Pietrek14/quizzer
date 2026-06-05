@@ -1,4 +1,5 @@
-﻿using QuizGenerator.Presenters.SingleQuestion.Contracts;
+﻿using QuizGenerator.Presenters.Common.Contracts;
+using QuizGenerator.Presenters.SingleQuestion.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,7 +14,7 @@ namespace QuizGenerator.Presenters.SingleQuiz.Contracts
         public event Action AddQuiz;
         public event Action UpdateQuiz;
         public event Action DeleteQuiz;
-        public event Action<string> SaveQuizToFile;
+        public event Action<string, EncryptionStrategyDto> SaveQuizToFile;
 
         void UpdateQuizTitle(string title);
         void UpdateQuestionList(IEnumerable<QuestionDto> questions);

@@ -1,6 +1,7 @@
 ﻿using QuizModel;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Text.Json;
@@ -20,6 +21,7 @@ namespace QuizGenerator.Services.Serialization
         {
             string json = JsonSerializer.Serialize(quiz);
             byte[] encrypted = this.EncryptionStrategy.Encrypt(json);
+
             File.WriteAllBytes(filePath, encrypted);
         }
 

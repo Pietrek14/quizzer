@@ -1,5 +1,7 @@
-﻿using QuizGenerator.Presenters.SingleQuestion;
+﻿using QuizGenerator.Presenters.Common.Contracts;
+using QuizGenerator.Presenters.SingleQuestion;
 using QuizGenerator.Presenters.SingleQuiz.Contracts;
+using QuizGenerator.Services.Encryption;
 using QuizGenerator.Services.Serialization;
 using QuizGenerator.Views;
 using QuizModel;
@@ -122,9 +124,17 @@ namespace QuizGenerator.Presenters.SingleQuiz
             this.view.Close();
         }
 
-        private void SaveQuizToFile(string quizFilePath)
+        private void SaveQuizToFile(string quizFilePath, EncryptionStrategyDto encryptionStrategy)
         {
-            var serializer = new QuizSerializer(new PlaintextStrategy());
+            IEncryptionStrategy strategy = encryptionStrategy switch
+            {
+                EncryptionStrategyDto.Plaintext => new PlaintextStrategy(),
+                EncryptionStrategyDto.Aes => EncryptionService.Instance.GetAesStrategy(),
+                EncryptionStrategyDto.TripleDes => EncryptionService.Instance.GetTripleDesStrategy(),
+                _ => throw new ArgumentOutOfRangeException(nameof(encryptionStrategy), encryptionStrategy, null)
+            };
+
+            var serializer = new QuizSerializer(strategy);
             var validator = new QuizValidator();
 
             var error = validator.ValidateQuiz(this.quiz);

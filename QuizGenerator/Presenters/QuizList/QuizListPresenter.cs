@@ -1,5 +1,7 @@
-﻿using QuizGenerator.Presenters.QuizList.Contracts;
+﻿using QuizGenerator.Presenters.Common.Contracts;
+using QuizGenerator.Presenters.QuizList.Contracts;
 using QuizGenerator.Presenters.SingleQuiz;
+using QuizGenerator.Services.Encryption;
 using QuizGenerator.Services.Serialization;
 using QuizModel;
 using QuizModel.Containers;
@@ -8,6 +10,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json;
 
 namespace QuizGenerator.Presenters.QuizList
 {
@@ -55,9 +58,17 @@ namespace QuizGenerator.Presenters.QuizList
             var singleQuizPresenter = new SingleQuizPresenter(singleQuizView, quizList, quiz);
         }
 
-        private void LoadQuiz(string quizFilePath)
+        private void LoadQuiz(string quizFilePath, EncryptionStrategyDto encryptionStrategy)
         {
-            var serializer = new QuizSerializer(new PlaintextStrategy());
+            IEncryptionStrategy strategy = encryptionStrategy switch
+            {
+                EncryptionStrategyDto.Plaintext => new PlaintextStrategy(),
+                EncryptionStrategyDto.Aes => EncryptionService.Instance.GetAesStrategy(),
+                EncryptionStrategyDto.TripleDes => EncryptionService.Instance.GetTripleDesStrategy(),
+                _ => throw new ArgumentOutOfRangeException(nameof(encryptionStrategy), encryptionStrategy, null)
+            };
+
+            var serializer = new QuizSerializer(strategy);
 
             try
             {
@@ -71,7 +82,7 @@ namespace QuizGenerator.Presenters.QuizList
 
                 this.quizList.AddItem(quiz);
             }
-            catch (Exception ex) when (ex is SerializationException or CryptographicException)
+            catch (Exception ex) when (ex is SerializationException or CryptographicException or JsonException)
             {
                 this.view.DisplayError($"Nie można załadować quizu w lokalizacji {quizFilePath}");
             }

@@ -34,6 +34,7 @@
             btnAddQuiz = new Button();
             btnLoadQuiz = new Button();
             ofdLoadQuiz = new OpenFileDialog();
+            cmbEncryptionStrategy = new ComboBox();
             SuspendLayout();
             // 
             // lblTitle
@@ -99,12 +100,23 @@
             // 
             ofdLoadQuiz.DefaultExt = "qz";
             // 
+            // cmbEncryptionStrategy
+            // 
+            cmbEncryptionStrategy.FormattingEnabled = true;
+            cmbEncryptionStrategy.Items.AddRange(new object[] { "Plaintext", "AES", "3DES" });
+            cmbEncryptionStrategy.Location = new Point(501, 423);
+            cmbEncryptionStrategy.Name = "cmbEncryptionStrategy";
+            cmbEncryptionStrategy.Size = new Size(121, 23);
+            cmbEncryptionStrategy.TabIndex = 5;
+            cmbEncryptionStrategy.Text = "Plaintext";
+            // 
             // QuizListView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.DimGray;
             ClientSize = new Size(800, 450);
+            Controls.Add(cmbEncryptionStrategy);
             Controls.Add(btnLoadQuiz);
             Controls.Add(btnAddQuiz);
             Controls.Add(lbxQuizzes);
@@ -124,5 +136,6 @@
         private Button btnAddQuiz;
         private Button btnLoadQuiz;
         private OpenFileDialog ofdLoadQuiz;
+        private ComboBox cmbEncryptionStrategy;
     }
 }

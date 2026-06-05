@@ -36,6 +36,7 @@
             btnDeleteQuiz = new Button();
             btnSaveQuiz = new Button();
             sfdSaveQuiz = new SaveFileDialog();
+            cmbEncryptionStrategy = new ComboBox();
             SuspendLayout();
             // 
             // tbxQuizName
@@ -118,12 +119,23 @@
             sfdSaveQuiz.FileName = "NowyQuiz";
             sfdSaveQuiz.Title = "Zapisz Quiz";
             // 
+            // cmbEncryptionStrategy
+            // 
+            cmbEncryptionStrategy.FormattingEnabled = true;
+            cmbEncryptionStrategy.Items.AddRange(new object[] { "Plaintext", "AES", "3DES" });
+            cmbEncryptionStrategy.Location = new Point(535, 415);
+            cmbEncryptionStrategy.Name = "cmbEncryptionStrategy";
+            cmbEncryptionStrategy.Size = new Size(121, 23);
+            cmbEncryptionStrategy.TabIndex = 7;
+            cmbEncryptionStrategy.Text = "Plaintext";
+            // 
             // SingleQuizView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.DimGray;
             ClientSize = new Size(800, 450);
+            Controls.Add(cmbEncryptionStrategy);
             Controls.Add(btnSaveQuiz);
             Controls.Add(btnDeleteQuiz);
             Controls.Add(btnEditQuiz);
@@ -147,5 +159,6 @@
         private Button btnDeleteQuiz;
         private Button btnSaveQuiz;
         private SaveFileDialog sfdSaveQuiz;
+        private ComboBox cmbEncryptionStrategy;
     }
 }
