@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Text.Json;
 
-namespace QuizGenerator.Services.Serialization
+namespace QuizServices.Serialization
 {
     public class QuizSerializer
     {

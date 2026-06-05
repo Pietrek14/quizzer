@@ -1,8 +1,8 @@
 ﻿using QuizGenerator.Presenters.Common.Contracts;
 using QuizGenerator.Presenters.SingleQuestion;
 using QuizGenerator.Presenters.SingleQuiz.Contracts;
-using QuizGenerator.Services.Encryption;
-using QuizGenerator.Services.Serialization;
+using QuizServices.Encryption;
+using QuizServices.Serialization;
 using QuizGenerator.Views;
 using QuizModel;
 using QuizModel.Containers;

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace QuizGenerator.Services.Serialization
+namespace QuizServices.Serialization
 {
-    internal class PlaintextStrategy : IEncryptionStrategy
+    public class PlaintextStrategy : IEncryptionStrategy
     {
         public byte[] Encrypt(string text)
         {

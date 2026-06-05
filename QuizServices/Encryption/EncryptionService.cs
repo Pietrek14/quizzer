@@ -1,12 +1,12 @@
-﻿using QuizGenerator.Services.Serialization;
+﻿using QuizServices.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace QuizGenerator.Services.Encryption
+namespace QuizServices.Encryption
 {
-    internal class EncryptionService
+    public class EncryptionService
     {
         private static EncryptionService? instance = null;
         // The key is filled with zeros. In a real application we should probably store an actual key in app secrets.
