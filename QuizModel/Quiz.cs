@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuizModel.Containers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,12 +13,12 @@ namespace QuizModel
         public string Name { get; set; }
         public Repository<Question> Questions { get; set; } = new Repository<Question>();
 
-        public Quiz() {
-            this.Id = Guid.NewGuid();
-        }
+        public Quiz() : this("") { }
+        public Quiz(String name) : this(Guid.NewGuid(), name) { }
 
-        public Quiz(Guid id) {
+        public Quiz(Guid id, String name) {
             this.Id = id;
+            this.Name = name;
         }
     }
 }

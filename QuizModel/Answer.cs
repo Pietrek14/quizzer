@@ -6,20 +6,15 @@ using System.Threading.Tasks;
 
 namespace QuizModel
 {
-    public class Answer : IGuided
+    public class Answer
     {
-        public Guid Id { get; }
-        public string Text { get; set; }
+        public string Content { get; set; }
         public bool IsCorrect { get; set; }
 
-        public Answer(Guid id, string text, bool isCorrect)
+        public Answer(string content, bool isCorrect)
         {
-            Id = id;
-            Text = text;
+            Content = content;
             IsCorrect = isCorrect;
         }
-
-        public Answer(string text, bool isCorrect)
-            : this(Guid.NewGuid(), text, isCorrect) {}
     }
 }
