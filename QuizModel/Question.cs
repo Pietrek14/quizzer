@@ -6,63 +6,28 @@ using System.Threading.Tasks;
 
 namespace QuizModel
 {
-    public class Question
+    public class Question : IGuided
     {
+        public Guid Id { get; }
         public String QuestionContent { get; set; }
+        public Repository<Answer> Answers { get; set; } = new Repository<Answer>();
+        public Question(String questionContent, List<Answer> answers)
+            : this(Guid.NewGuid(), questionContent, answers) {}
 
-        private String correctAnswer;
-        public String CorrectAnswer {
-            get {
-                return correctAnswer;
-            }
-            set {
-                foreach (var incorrectAnswer in incorrectAnswers)
-                {
-                    if (value == incorrectAnswer)
-                        throw new ArgumentException("Correct answer cannot be the same as any of the incorrect answers.");
-                }
-                correctAnswer = value;
-            }
-        }
-        private List<String> incorrectAnswers;
-
-        public Question(String questionContent, String correctAnswer, List<String> incorrectAnswers)
+        public Question(Guid id, String questionContent, List<Answer> answers)
         {
+            this.Id = id;
             this.QuestionContent = questionContent;
-            this.CorrectAnswer = correctAnswer;
 
-            if(incorrectAnswers.Contains(correctAnswer))
-                throw new ArgumentException("Incorrect answers cannot contain the correct answer.");
+            if(answers == null || answers.Count != 4)
+            {
+                throw new ArgumentException("A question must have exactly four answers.");
+            }
 
-            if (incorrectAnswers.Count == 0)
-                throw new ArgumentException("There must be at least one incorrect answer.");
-
-            if (incorrectAnswers.Count > 3)
-                throw new ArgumentException("There can be at most three incorrect answers.");
-
-            this.incorrectAnswers = incorrectAnswers;
-        }
-
-        public void AddIncorrectAnswer(String incorrectAnswer)
-        {
-            if (incorrectAnswer == correctAnswer)
-                throw new ArgumentException("Incorrect answer cannot be the same as the correct answer.");
-            if (incorrectAnswers.Count >= 3)
-                throw new InvalidOperationException("Cannot add more than three incorrect answers.");
-            incorrectAnswers.Add(incorrectAnswer);
-        }
-
-        public List<String> GetIncorrectAnswers()
-        {
-            var allAnswers = new List<String>(incorrectAnswers);
-            return allAnswers;
-        }
-
-        public List<String> GetAllAnswers()
-        {
-            var allAnswers = new List<String>(new String[] { correctAnswer });
-            allAnswers.AddRange(incorrectAnswers);
-            return allAnswers;
+            foreach (var answer in answers)
+            {
+                this.Answers.AddItem(answer);
+            }
         }
     }
 }

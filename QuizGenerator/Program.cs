@@ -1,3 +1,11 @@
+using QuizGenerator.Presenters.QuizList;
+using QuizGenerator.Views;
+using QuizModel;
+using QuizModel.Containers;
+using System.Diagnostics;
+using System.Text;
+using System.Text.Json;
+
 namespace QuizGenerator
 {
     internal static class Program
@@ -8,10 +16,13 @@ namespace QuizGenerator
         [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new MainForm());
+
+            var view = new QuizListView();
+            var quizList = new Repository<Quiz>();
+            var presenter = new QuizListPresenter(view, quizList);
+
+            Application.Run(view);
         }
     }
 }
