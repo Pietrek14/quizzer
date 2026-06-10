@@ -1,0 +1,56 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v9.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v9.0": {
+      "QuizSolver_M/1.0.0": {
+        "dependencies": {
+          "QuizModel": "1.0.0",
+          "QuizServices": "1.0.0"
+        },
+        "runtime": {
+          "QuizSolver_M.dll": {}
+        }
+      },
+      "QuizModel/1.0.0": {
+        "runtime": {
+          "QuizModel.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "QuizServices/1.0.0": {
+        "dependencies": {
+          "QuizModel": "1.0.0"
+        },
+        "runtime": {
+          "QuizServices.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "QuizSolver_M/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "QuizModel/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "QuizServices/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

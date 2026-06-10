@@ -1,0 +1,127 @@
+{
+  "version": 3,
+  "targets": {
+    "net9.0-windows7.0": {
+      "QuizModel/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "compile": {
+          "bin/placeholder/QuizModel.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/QuizModel.dll": {}
+        }
+      },
+      "QuizServices/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "dependencies": {
+          "QuizModel": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/QuizServices.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/QuizServices.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "QuizModel/1.0.0": {
+      "type": "project",
+      "path": "../QuizModel/QuizModel.csproj",
+      "msbuildProject": "../QuizModel/QuizModel.csproj"
+    },
+    "QuizServices/1.0.0": {
+      "type": "project",
+      "path": "../QuizServices/QuizServices.csproj",
+      "msbuildProject": "../QuizServices/QuizServices.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net9.0-windows7.0": [
+      "QuizModel >= 1.0.0",
+      "QuizServices >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\matis\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "C:\\Users\\matis\\Downloads\\quizzer-main\\quizzer-main\\QuizSolver_M\\QuizSolver_M.csproj",
+      "projectName": "QuizSolver_M",
+      "projectPath": "C:\\Users\\matis\\Downloads\\quizzer-main\\quizzer-main\\QuizSolver_M\\QuizSolver_M.csproj",
+      "packagesPath": "C:\\Users\\matis\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\matis\\Downloads\\quizzer-main\\quizzer-main\\QuizSolver_M\\obj\\",
+      "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\matis\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net9.0-windows"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net9.0-windows7.0": {
+          "targetAlias": "net9.0-windows",
+          "projectReferences": {
+            "C:\\Users\\matis\\Downloads\\quizzer-main\\quizzer-main\\QuizModel\\QuizModel.csproj": {
+              "projectPath": "C:\\Users\\matis\\Downloads\\quizzer-main\\quizzer-main\\QuizModel\\QuizModel.csproj"
+            },
+            "C:\\Users\\matis\\Downloads\\quizzer-main\\quizzer-main\\QuizServices\\QuizServices.csproj": {
+              "projectPath": "C:\\Users\\matis\\Downloads\\quizzer-main\\quizzer-main\\QuizServices\\QuizServices.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
+      },
+      "SdkAnalysisLevel": "9.0.300"
+    },
+    "frameworks": {
+      "net9.0-windows7.0": {
+        "targetAlias": "net9.0-windows",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          },
+          "Microsoft.WindowsDesktop.App.WindowsForms": {
+            "privateAssets": "none"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.315/PortableRuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}
