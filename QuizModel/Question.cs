@@ -12,7 +12,16 @@ namespace QuizModel
     {
         public Guid Id { get; }
         public String QuestionContent { get; set; }
-        public ObservedArray<Answer> Answers { get; set; }
+        public ObservedArray<Answer> Answers { get; set {
+            var anyAnswerCorrect = value.Items.Aggregate(false, (acc, ans) => acc || ans.IsCorrect);
+
+            if (!anyAnswerCorrect)
+            {
+                throw new ArgumentException("At least one answer must be correct.");
+            }
+
+            field = value;
+        } }
         public Question(String questionContent, IEnumerable<Answer> answers)
             : this(Guid.NewGuid(), questionContent, answers) { }
 
