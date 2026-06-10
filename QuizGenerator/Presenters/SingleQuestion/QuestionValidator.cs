@@ -28,6 +28,13 @@ namespace QuizGenerator.Presenters.SingleQuestion
                 }
             }
 
+            var anyCorrect = answers.Aggregate(false, (acc, ans) => acc || ans.IsCorrect);
+
+            if (!anyCorrect)
+            {
+                return "Przynajmniej jedna odpowiedź musi być poprawna!";
+            }
+
             return null;
         }
     }

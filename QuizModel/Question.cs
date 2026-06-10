@@ -28,6 +28,13 @@ namespace QuizModel
                 throw new ArgumentException("A question must have exactly four answers.");
             }
 
+            var anyAnswerCorrect = answersArr.Aggregate(false, (acc, ans) => acc || ans.IsCorrect);
+
+            if (!anyAnswerCorrect)
+            {
+                throw new ArgumentException("At least one answer must be correct.");
+            }
+
             this.Answers = new ObservedArray<Answer>(answersArr);
         }
 
@@ -40,6 +47,13 @@ namespace QuizModel
             if (answers == null || answers.Items.Length != 4)
             {
                 throw new ArgumentException("A question must have exactly four answers.");
+            }
+
+            var anyAnswerCorrect = answers.Items.Aggregate(false, (acc, ans) => acc || ans.IsCorrect);
+
+            if (!anyAnswerCorrect)
+            {
+                throw new ArgumentException("At least one answer must be correct.");
             }
 
             this.Answers = answers;
