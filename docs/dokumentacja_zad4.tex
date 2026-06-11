@@ -272,10 +272,138 @@ private void OnEndQuiz()
 
 
 \subsection{Moduł Generatora Quizu (Dawid Piotrowski)}
-\textit{\todo{Tutaj należy opisać realizację generatora quizu. Jak zrealizowano tworzenie pytań, mechanizm szyfrowania i zapisu do pliku dyskowego.}}
 
-% [Wklej kod lub opis tutaj]
+Moduł generatora quizów został zrealizowany w oparciu o architekturę trójwarstwową przy użyciu wzorca projektowego \textbf{MVP (Model-View-Presenter)}. Odpowiada on za zarządzanie listą dostępnych testów, tworzenie i edycję pytań oraz bezpieczny zapis i odczyt danych przy użyciu dedykowanych interfejsów kryptograficznych.
 
+\subsubsection{Architektura panelu zarządzania quizami}
+
+Główny punkt wejścia modułu administracyjnego stanowi panel listy quizów. Zaimplementowano go z zachowaniem pełnej separacji odpowiedzialności pomiędzy poszczególnymi warstwami:
+
+\begin{itemize}
+    \item \textbf{Model} --- reprezentowany przez generyczną klasę \texttt{Repository<Quiz>} (współdzieloną ze słownika modelu).
+    \item \textbf{View (\texttt{QuizListView})} --- klasa widoku implementująca interfejs \texttt{IQuizListView}. Warstwa ta odpowiada wyłącznie za renderowanie kontrolek interfejsu oraz przechwytywanie akcji użytkownika, które są przekazywane za pomocą zdarzeń do prezentera.
+    \item \textbf{Presenter (\texttt{QuizListPresenter})} --- komponent pośredniczący, który subskrybuje zdarzenia widoku (\texttt{AddQuiz}, \texttt{OpenQuiz}, \texttt{LoadQuiz}) oraz reaguje na modyfikacje danych w modelu (\texttt{ItemAdded}, \texttt{ItemUpdated}, \texttt{ItemRemoved}), automatycznie synchronizując stan interfejsu graficznego.
+\end{itemize}
+
+\subsubsection{Mechanizm dynamicznej synchronizacji widoku}
+
+W celu zachowania pełnej reaktywności interfejsu, prezenter wiąże zdarzenia zmiany kolekcji repozytorium z delegatem aktualizującym kontrolki widoku. Wykorzystanie mapowania obiektów domenowych za pomocą obiektu typu data transfer object (DTO) pozwala na uniezależnienie widoku od modelu:
+
+\begin{lstlisting}[caption={Konstruktor prezentera listy quizów i rejestracja zdarzeń}]
+public QuizListPresenter(IQuizListView view, Repository<Quiz> quizList)
+{
+    this.view = view;
+    this.quizList = quizList;
+
+    Action<Quiz> updateQuizList = quiz => this.view.UpdateQuizList(this.quizList.Items.Values.Select(QuizToDto));
+    this.quizList.ItemAdded += updateQuizList;
+    this.quizList.ItemUpdated += updateQuizList;
+    this.quizList.ItemRemoved += updateQuizList;
+
+    this.view.AddQuiz += () => OpenQuizForm(null);
+    this.view.OpenQuiz += OpenQuizFormForEdition;
+    this.view.LoadQuiz += LoadQuiz;
+}
+\end{lstlisting}
+
+\subsubsection{Architektura formularza zarządzania pojedynczym quizem}
+
+Formularz pojedynczego quizu odpowiada za modyfikację nazwy testu, zarządzanie powiązaną z nim kolekcją pytań oraz operacje utrwalania danych na dysku. Logika została zaimplementowana z zachowaniem ścisłego podziału warstw:
+
+\begin{itemize}
+    \item \textbf{Model} --- reprezentowany przez klasę domenową \texttt{Quiz} (zawierającą wewnętrzne repozytorium pytań).
+    \item \textbf{View (\texttt{SingleQuizView})} --- klasa formularza implementująca interfejs \texttt{ISingleQuizView}. Odpowiada za prezentację danych dotyczących quizu oraz przełączanie między trybem tworzenia lub edycji za pomocą dedykowanej metody \texttt{EnableEdition}. Wszystkie interakcje użytkownika są mapowane bezpośrednio na zdarzenia interfejsu.
+    \item \textbf{Presenter (\texttt{SingleQuizPresenter})} --- komponent zarządzający cyklem życia formularza. Inicjalizuje stan widoku w zależności od kontekstu wywołania (tryb tworzenia nowej instancji lub edycji istniejącej), subskrybuje zdarzenia interfejsu użytkownika oraz reaguje na zmiany w obserwowalnej kolekcji pytań modelu, wymuszając automatyczne odświeżenie widoku.
+\end{itemize}
+
+\subsubsection{Walidacja danych}
+
+W celu zapewnienia poprawności struktur danych przed wykonaniem operacji zapisu lub modyfikacji, prezenter wykorzystuje wewnętrzną klasę narzędziową \texttt{QuizValidator}. Implementuje ona minimalne wymagania dla struktury testu:
+
+\begin{itemize}
+    \item \textbf{Niepusta nazwa:} Nazwa quizu musi być niepusta i nie składać się tylko z białych znaków
+    \item \textbf{Niepusta zawartość:} W quizie musi pojawić się przynajmniej jedno pytanie
+\end{itemize}
+
+\subsubsection{Serializacja quizu}
+
+Wykorzystując wzorzec strategii oraz singleton, program zapisuje dane quizu na dysk za pośrednictwem usługi \verb|QuizSerializer|.
+
+\begin{lstlisting}[caption={Serializacja quizu}]
+IEncryptionStrategy strategy = encryptionStrategy switch
+{
+    EncryptionStrategyDto.Plaintext => new PlaintextStrategy(),
+    EncryptionStrategyDto.Aes => EncryptionService.Instance.GetAesStrategy(),
+    EncryptionStrategyDto.TripleDes => EncryptionService.Instance.GetTripleDesStrategy(),
+    _ => throw new ArgumentOutOfRangeException(nameof(encryptionStrategy), encryptionStrategy, null)
+};
+
+var serializer = new QuizSerializer(strategy);
+var validator = new QuizValidator();
+
+var error = validator.ValidateQuiz(this.quiz);
+if (error == null)
+{
+    try
+    {
+        serializer.Serialize(this.quiz, quizFilePath);
+    }
+    catch(CryptographicException)
+    {
+        this.view.DisplayError("Zapisanie quizu do pliku nie powiodlo sie :(");
+    }
+}
+else
+{
+    this.view.DisplayError(error);
+}
+\end{lstlisting}
+
+\subsubsection{Architektura formularza zarządzania pojedynczym pytaniem}
+
+Formularz pojedynczego pytania odpowiada za definiowanie treści pytania testowego oraz zarządzanie powiązanym zestawem dokładnie czterech wariantów odpowiedzi. Logika została zaimplementowana z zachowaniem pełnej separacji odpowiedzialności pomiędzy warstwami:
+
+\begin{itemize}
+    \item \textbf{Model} --- reprezentowany przez klasę domenową \texttt{Question} (zawierającą wewnętrzne repozytorium obiektów \texttt{Answer}).
+    \item \textbf{View (\texttt{SingleQuestionView})} --- klasa formularza implementująca interfejs \texttt{ISingleQuestionView}. Odpowiada za prezentację danych pytania oraz przełączanie między trybem dodawania pytania i jego edycji. Widok wykorzystuje także mechanizm \verb|UserControl| w WinForms'ach, aby stworzyć osobną kontrolkę do wprowadzania odpowiedzi na pytania.
+    \item \textbf{Presenter (\texttt{SingleQuestionPresenter})} --- komponent pośredniczący, który inicjalizuje stan kontrolek (w trybie dodawania nowej pozycji lub edycji istniejącej), subskrybuje zdarzenia widoku i konstruuje obiekt przed ostatecznym zatwierdzeniem.
+\end{itemize}
+
+\subsubsection{Walidacja danych}
+
+W celu zapewnienia integralności danych przed zapisem lub modyfikacją pytania wewnątrz struktury quizu, prezenter wykorzystuje pomocniczą klasę \texttt{QuestionValidator}. Odpowiada ona za walidację:
+
+\begin{itemize}
+    \item \textbf{Niepusta treść:} Treść pytania nie może być pusta
+    \item \textbf{Cztery niepuste odpowiedzi:} Odpowiedzi nie mogą być puste
+    \item \textbf{Co najmniej jedna odpowiedź poprawna:} Co najmniej jedna z odpowiedzi musi być oznaczona jako poprawna
+\end{itemize}
+
+\subsubsection{Mechanizm obsługi zdarzeń i synchronizacji stanu kontrolki użytkownika}
+
+W celu zachowania pełnej reaktywności interfejsu bez wprowadzania ścisłego powiązania warstw, konstruktor widoku wiąże wewnętrzne delegaty zdarzeń kontrolek \texttt{SingleAnswer} z potokiem zdarzeń prezentera, przekazując indeks modyfikowanej odpowiedzi:
+
+\begin{lstlisting}[caption={Inicjalizacja kontrolek użytkownika i rejestracja zdarzeń w SingleQuestionView}]
+public SingleQuestionView()
+{
+    InitializeComponent();
+
+    answerForms = new SingleAnswer[] { ans1, ans2, ans3, ans4 };
+
+    for (int i = 0; i < answerForms.Length; i++)
+    {
+        var index = i;
+        answerForms[index].TextChanged += (sender, e) =>
+        {
+            AnswerUpdated?.Invoke(index, new AnswerDto(answerForms[index].AnswerContent, answerForms[index].IsCorrect));
+        };
+        answerForms[index].IsCorrectChanged += (sender, e) =>
+        {
+            AnswerUpdated?.Invoke(index, new AnswerDto(answerForms[index].AnswerContent, answerForms[index].IsCorrect));
+        };
+    }
+}
+\end{lstlisting}
 
 \subsection{Alternatywny Moduł Rozwiązania Quizu (Filip Kłos)}
 \textit{\todo{Tutaj należy opisać drugą aplikację do rozwiązywania quizu.}}
