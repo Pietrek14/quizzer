@@ -1,0 +1,277 @@
+% !TeX spellcheck = pl_PL-Polish
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[polish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\selectlanguage{polish}
+\usepackage{graphicx}
+\graphicspath{ {./media/} }
+\usepackage{xcolor}
+\usepackage{geometry}
+\geometry{a4paper, margin=2cm}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{float}
+
+\def\projectName{Zadanie 4 Quiz}
+\def\authorA{Dawid Piotrowski (Generator quizu)}
+\def\authorB{Filip Kłos (Rozwiązywanie quizu)}
+\def\authorC{Mateusz Szymczak (Drugie rozwiązywanie quizu QuizSolver-M)}
+\newcommand\todo[1]{\textcolor{red}{#1}}
+
+% Ustawienia do wyświetlania kodu źródłowego
+\lstset{
+    language=[Sharp]C,
+    backgroundcolor=\color{black!5},
+    basicstyle=\ttfamily\footnotesize,
+    keywordstyle=\color{blue},
+    stringstyle=\color{red},
+    commentstyle=\color{green!50!black},
+    breaklines=true,
+    captionpos=b,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    showstringspaces=false
+}
+
+\begin{document}
+\pagenumbering{gobble}
+\clearpage
+	\begin{figure}[h]
+		\centering
+		%\includegraphics[width=0.5\linewidth]{media/polsl_logo_pion_en_rgb.png}
+		\includegraphics[width=0.5\linewidth]{ps-logo.svg}
+	\end{figure}
+
+\hspace{3cm}
+	\begin{center}Dokumentacja projektowa\end{center}
+	\hspace{3cm}
+	\begin{center}\large\textbf{Programowanie obiektowe i graficzne}\end{center}
+	\begin{center}\large\textit{Zadanie 4 - ``Quiz''}\end{center}
+
+\hspace{7cm}
+	\begin{flushright}Kierunek: Informatyka
+		\end{flushright}
+		\begin{flushright}Członkowie zespołu:
+		\par
+		\textit{Filip Kłos}
+		\par
+		\textit{Dawid Piotrowski}
+		\par
+		\textit{Mateusz Szymczak}
+	\end{flushright}
+\vfill
+	\begin{center}Gliwice, 2025/2026\end{center}
+
+\newpage
+\pagenumbering{arabic}
+\tableofcontents
+\newpage
+
+\section{Wprowadzenie}
+\subsection{Role w projekcie}
+Projekt został zrealizowany w zespole, gdzie podzielono się następującymi obowiązkami:
+\begin{itemize}
+    \item \textbf{Dawid Piotrowski:} Opracowanie generatora quizu.
+    \item \textbf{Filip Kłos:} Opracowanie aplikacji rozwiązującej quiz.
+    \item \textbf{Mateusz Szymczak:} Opracowanie alternatywnego modułu rozwiązywania.
+Wspólnie zaprojektowaliśmy również model obiektowy, współdzielony między projektami.
+\end{itemize}
+
+\subsection{Cel projektu}
+Celem projektu jest stworzenie aplikacji okienkowej składającej się z modułów: generatora quizu oraz aplikacji do rozwiązywania quizów. Aplikacja uczy budowy systemów w oparciu o architekturę trójwarstwową, w tym przypadku z wykorzystaniem wzorca projektowego Model-View-Presenter (MVP).
+
+\section{Założenia projektowe}
+\subsection{Założenia techniczne i nietechniczne}
+\begin{itemize}
+    \item Architektura trójwarstwowa (np. MVP).
+    \item Pliki z quizami są szyfrowane (np. za pomocą algorytmu AES lub TripleDES) i deszyfrowane podczas wczytywania.
+    \item Generator umożliwia tworzenie pytań wielokrotnego wyboru (cztery odpowiedzi, w tym minimum jedna poprawna).
+    \item Aplikacja rozwiązująca pozwala na wczytanie pliku, odliczanie czasu za pomocą zegara oraz automatyczne obliczenie punktów po zakończeniu.
+\end{itemize}
+
+\subsection{Stos technologiczny}
+\begin{itemize}
+    \item \textbf{Język programowania:} C\#
+    \item \textbf{Platforma:} .NET
+    \item \textbf{Interfejs graficzny:} Windows Forms
+\end{itemize}
+
+\subsection{Oczekiwane rezultaty projektu}
+Gotowy system pozwalający na bezproblemowe tworzenie szyfrowanych zestawów pytań, a następnie ich bezpieczne wczytywanie w aplikacji rozwiązującej z przyjaznym interfejsem zapobiegającym błędom użytkownika.
+
+\section{Realizacja projektu}
+
+\subsection{Elementy współdzielone}
+
+\subsubsection{Model obiektowy}
+
+Wspólnie zaprojektowaliśmy model obiektowy aplikacji, który rozwijał się także podczas jej tworzenia.
+Model prezentuje się w następujący sposób:
+
+\begin{figure}[H]
+    \includegraphics[width=0.2\linewidth]{quiz_uml_simplified.png}
+    \centering
+    \caption{Uproszczony diagram UML modelu obiektowego aplikacji}
+\end{figure}
+
+Relacje między obiektami określiliśmy jako agregację częściową, ponieważ chcieliśmy zezwolić na
+tworzenie obiektu ``krok po kroku'', co wymaga istnienia instancji obiektów \verb|Question| oraz
+\verb|Answer| poza klasą \verb|Quiz|.
+
+Powyższy diagram przedstawia jednak model w uproszczonej postaci. Pomija bowiem zastosowane przez nas
+interfejsy oraz klasy użytkowe, służące łatwiejszemu śledzeniu edycji obiektów. Stworzyliśmy dwie
+klasy, \verb|Repository| oraz \verb|ObservedArray|, stanowiące odpowiedniki kolejno słownika oraz
+tablicy, implementujące dodatkowo wzorzec obserwatora.
+
+\begin{figure}[H]
+    \includegraphics[width=0.75\linewidth]{quiz_uml_full.png}
+    \centering
+    \caption{Pełny diagram UML modelu obiektowego aplikacji}
+\end{figure}
+
+\subsection{Moduł Rozwiązywania Quizu (Mateusz Szymczak)}
+
+Moduł \texttt{QuizSolver\_M} został zrealizowany zgodnie z wzorcem \textbf{MVP (Model-View-Presenter)},
+który zapewnia separację logiki biznesowej od interfejsu użytkownika.
+Projekt korzysta ze współdzielonych bibliotek \texttt{QuizModel} i \texttt{QuizServices},
+zawierających klasy modelu (\texttt{Quiz}, \texttt{Question}, \texttt{Answer})
+oraz serwisy serializacji i szyfrowania.
+
+\subsubsection{Architektura MVP}
+
+\begin{itemize}
+    \item \textbf{Model} --- klasy \texttt{Quiz}, \texttt{Question}, \texttt{Answer}
+          oraz \texttt{QuizSerializer} i \texttt{EncryptionService} współdzielone z generatorem.
+    \item \textbf{View (\texttt{SolverView})} --- formularz WinForms implementujący interfejs
+          \texttt{ISolverView}. Widok nie zawiera logiki --- wystawia zdarzenia i aktualizuje UI
+          na polecenie prezentera.
+    \item \textbf{Presenter (\texttt{SolverPresenter})} --- subskrybuje zdarzenia widoku,
+          steruje przebiegiem quizu i aktualizuje widok przez metody interfejsu.
+\end{itemize}
+
+\subsubsection{Wczytywanie i automatyczne deszyfrowanie}
+
+Po wybraniu pliku przez użytkownika (\texttt{OpenFileDialog}) prezenter próbuje
+odszyfrować go kaskadowo, testując kolejno strategie \textbf{AES}, \textbf{TripleDES}
+i \textbf{Plaintext}. Dzięki temu aplikacja jest kompatybilna z każdym trybem zapisu
+generatora bez konieczności ręcznego wyboru algorytmu.
+
+\begin{lstlisting}
+var strategies = new List<IEncryptionStrategy>
+{
+    EncryptionService.Instance.GetAesStrategy(),
+    EncryptionService.Instance.GetTripleDesStrategy(),
+    new PlaintextStrategy()
+};
+foreach (var strategy in strategies)
+{
+    try
+    {
+        var serializer = new QuizSerializer(strategy);
+        _quiz = serializer.Deserialize(dialog.FileName);
+        _questions = _quiz.Questions.Items.Values.ToList();
+        _userAnswers = _questions.ToDictionary(
+            q => q.Id,
+            q => new List<bool> { false, false, false, false });
+        _view.SetQuizTitle(_quiz.Name, _questions.Count);
+        _view.EnableStart(true);
+        return;
+    }
+    catch { }
+}
+_view.DisplayError("Nie udalo sie wczytac quizu.");
+\end{lstlisting}
+
+\subsubsection{Sterowanie przebiegiem quizu i timer}
+
+Prezenter kontroluje stan interfejsu poprzez włączanie i wyłączanie elementów UI:
+\begin{itemize}
+    \item \textbf{Po wczytaniu pliku:} aktywowany jest przycisk „Start".
+    \item \textbf{Po kliknięciu „Start":} uruchamiany jest \texttt{Timer} (interwał 1000\,ms),
+          aktywowane są przyciski nawigacji i „Zakończ".
+    \item \textbf{Po kliknięciu „Zakończ":} timer zatrzymywany, checkboxy blokowane,
+          obliczany wynik i wyświetlane kolorowe oznaczenia odpowiedzi.
+\end{itemize}
+
+\begin{lstlisting}
+_timer.Interval = 1000;
+_timer.Tick += (s, e) =>
+    _view.UpdateTimer((DateTime.Now - _startTime).ToString(@"mm\:ss"));
+\end{lstlisting}
+
+\subsubsection{Punktacja i weryfikacja odpowiedzi}
+
+Odpowiedzi użytkownika przechowywane są w słowniku \texttt{\_userAnswers} (klucz: \texttt{Guid} pytania,
+wartość: lista 4 wartości \texttt{bool}). Użytkownik otrzymuje 1 punkt za pytanie tylko wtedy,
+gdy jego zaznaczenia są identyczne z zestawem poprawnych odpowiedzi (metoda \texttt{SequenceEqual}).
+
+\begin{lstlisting}
+private int CalculateScore()
+{
+    int score = 0;
+    foreach (var q in _questions)
+    {
+        var correct = q.Answers.Items.Select(a => a.IsCorrect).ToList();
+        var user = _userAnswers[q.Id];
+        if (correct.SequenceEqual(user)) score++;
+    }
+    return score;
+}
+\end{lstlisting}
+
+\subsubsection{Podgląd poprawnych i błędnych odpowiedzi}
+
+Po zakończeniu quizu użytkownik może przeglądać pytania z oznaczeniem kolorystycznym odpowiedzi:
+\begin{itemize}
+    \item \textcolor{green!60!black}{\textbf{Zielony}} --- zaznaczona i poprawna,
+    \item \textcolor{orange}{\textbf{Pomarańczowy}} --- poprawna, ale niezaznaczona (pominięta),
+    \item \textcolor{red}{\textbf{Czerwony}} --- zaznaczona, ale błędna.
+\end{itemize}
+
+Checkboxy pozostają wizualnie włączone (WinForms przy \texttt{Enabled = false} nadpisuje
+\texttt{ForeColor} na szary, co uniemożliwiałoby wyświetlenie kolorów), a blokada zmian
+realizowana jest przez flagę \texttt{\_quizEnded} w presenterze.
+
+\begin{lstlisting}
+private void OnEndQuiz()
+{
+    _timer.Stop();
+    _elapsed = DateTime.Now - _startTime;
+    _quizEnded = true;
+    _view.EnableEnd(false);
+    _view.EnableNavigation(true);
+    int score = CalculateScore();
+    ShowCorrectAnswers();
+    _view.ShowResult(score, _questions.Count, _elapsed);
+}
+\end{lstlisting}
+
+
+\subsection{Moduł Generatora Quizu (Dawid Piotrowski)}
+\textit{\todo{Tutaj należy opisać realizację generatora quizu. Jak zrealizowano tworzenie pytań, mechanizm szyfrowania i zapisu do pliku dyskowego.}}
+
+% [Wklej kod lub opis tutaj]
+
+
+\subsection{Alternatywny Moduł Rozwiązania Quizu (Filip Kłos)}
+\textit{\todo{Tutaj należy opisać drugą aplikację do rozwiązywania quizu.}}
+
+
+\section{Wnioski}
+\begin{itemize}
+    \item \textbf{Spostrzeżenia:} Zastosowanie wzorca projektowego MVP w aplikacji Windows Forms znacząco ułatwiło separację logiki od interfejsu graficznego.
+    \item \textbf{Osiągnięcia:} Zrealizowano poprawnie funkcjonującą warstwę prezentera oraz szyfrowanie/deszyfrowanie plików projektowych.
+    \item \textbf{Potencjał rozwoju:} Aplikację można w przyszłości rozbudować o możliwość eksportu statystyk do bazy danych, czy obsługę multimediów w pytaniach.
+\end{itemize}
+
+\section{Bibliografia}
+\begin{enumerate}
+    \item Wytyczne do zadania nr 4 - ,,Quiz''
+    \item Dokumentacja języka C\# i platformy .NET
+    \item Wykład ,,Diagramy UML''
+\end{enumerate}
+
+\end{document}

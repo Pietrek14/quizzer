@@ -22,6 +22,7 @@ namespace QuizModel
 
             field = value;
         } }
+
         public Question(String questionContent, IEnumerable<Answer> answers)
             : this(Guid.NewGuid(), questionContent, answers) { }
 

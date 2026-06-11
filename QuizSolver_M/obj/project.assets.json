@@ -1,69 +1,29 @@
 {
-  "version": 3,
+  "version": 4,
   "targets": {
-    "net9.0-windows7.0": {
-      "QuizModel/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v9.0",
-        "compile": {
-          "bin/placeholder/QuizModel.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/QuizModel.dll": {}
-        }
-      },
-      "QuizServices/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v9.0",
-        "dependencies": {
-          "QuizModel": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/QuizServices.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/QuizServices.dll": {}
-        }
-      }
-    }
+    "net9.0-windows": {}
   },
-  "libraries": {
-    "QuizModel/1.0.0": {
-      "type": "project",
-      "path": "../QuizModel/QuizModel.csproj",
-      "msbuildProject": "../QuizModel/QuizModel.csproj"
-    },
-    "QuizServices/1.0.0": {
-      "type": "project",
-      "path": "../QuizServices/QuizServices.csproj",
-      "msbuildProject": "../QuizServices/QuizServices.csproj"
-    }
-  },
+  "libraries": {},
   "projectFileDependencyGroups": {
-    "net9.0-windows7.0": [
-      "QuizModel >= 1.0.0",
-      "QuizServices >= 1.0.0"
+    "net9.0-windows": [
+      "E:\\STUDIA\\programowanie-obiektowe-i-graficzne\\quiz\\Quizzer\\QuizModel\\QuizModel.csproj",
+      "E:\\STUDIA\\programowanie-obiektowe-i-graficzne\\quiz\\Quizzer\\QuizServices\\QuizServices.csproj"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\matis\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Dawid\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\matis\\Downloads\\quizzer-main\\quizzer-main\\QuizSolver_M\\QuizSolver_M.csproj",
+      "projectUniqueName": "E:\\STUDIA\\programowanie-obiektowe-i-graficzne\\quiz\\Quizzer\\QuizSolver_M\\QuizSolver_M.csproj",
       "projectName": "QuizSolver_M",
-      "projectPath": "C:\\Users\\matis\\Downloads\\quizzer-main\\quizzer-main\\QuizSolver_M\\QuizSolver_M.csproj",
-      "packagesPath": "C:\\Users\\matis\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\matis\\Downloads\\quizzer-main\\quizzer-main\\QuizSolver_M\\obj\\",
+      "projectPath": "E:\\STUDIA\\programowanie-obiektowe-i-graficzne\\quiz\\Quizzer\\QuizSolver_M\\QuizSolver_M.csproj",
+      "packagesPath": "C:\\Users\\Dawid\\.nuget\\packages\\",
+      "outputPath": "E:\\STUDIA\\programowanie-obiektowe-i-graficzne\\quiz\\Quizzer\\QuizSolver_M\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\matis\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\Dawid\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -74,14 +34,15 @@
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net9.0-windows7.0": {
+        "net9.0-windows": {
+          "framework": "net9.0-windows7.0",
           "targetAlias": "net9.0-windows",
           "projectReferences": {
-            "C:\\Users\\matis\\Downloads\\quizzer-main\\quizzer-main\\QuizModel\\QuizModel.csproj": {
-              "projectPath": "C:\\Users\\matis\\Downloads\\quizzer-main\\quizzer-main\\QuizModel\\QuizModel.csproj"
+            "E:\\STUDIA\\programowanie-obiektowe-i-graficzne\\quiz\\Quizzer\\QuizModel\\QuizModel.csproj": {
+              "projectPath": "E:\\STUDIA\\programowanie-obiektowe-i-graficzne\\quiz\\Quizzer\\QuizModel\\QuizModel.csproj"
             },
-            "C:\\Users\\matis\\Downloads\\quizzer-main\\quizzer-main\\QuizServices\\QuizServices.csproj": {
-              "projectPath": "C:\\Users\\matis\\Downloads\\quizzer-main\\quizzer-main\\QuizServices\\QuizServices.csproj"
+            "E:\\STUDIA\\programowanie-obiektowe-i-graficzne\\quiz\\Quizzer\\QuizServices\\QuizServices.csproj": {
+              "projectPath": "E:\\STUDIA\\programowanie-obiektowe-i-graficzne\\quiz\\Quizzer\\QuizServices\\QuizServices.csproj"
             }
           }
         }
@@ -96,10 +57,11 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.300"
+      "SdkAnalysisLevel": "10.0.300"
     },
     "frameworks": {
-      "net9.0-windows7.0": {
+      "net9.0-windows": {
+        "framework": "net9.0-windows7.0",
         "targetAlias": "net9.0-windows",
         "imports": [
           "net461",
@@ -112,16 +74,28 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "frameworkReferences": {
-          "Microsoft.NETCore.App": {
-            "privateAssets": "all"
-          },
-          "Microsoft.WindowsDesktop.App.WindowsForms": {
-            "privateAssets": "none"
-          }
-        },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.315/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.300/PortableRuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1105",
+      "level": "Error",
+      "message": "Unable to find project information for 'E:\\STUDIA\\programowanie-obiektowe-i-graficzne\\quiz\\Quizzer\\QuizServices\\QuizServices.csproj'. If you are using Visual Studio, this may be because the project is unloaded or not part of the current solution so run a restore from the command-line. Otherwise, the project file may be invalid or missing targets required for restore.",
+      "libraryId": "E:\\STUDIA\\programowanie-obiektowe-i-graficzne\\quiz\\Quizzer\\QuizServices\\QuizServices.csproj",
+      "targetGraphs": [
+        "net9.0-windows"
+      ]
+    },
+    {
+      "code": "NU1105",
+      "level": "Error",
+      "message": "Unable to find project information for 'E:\\STUDIA\\programowanie-obiektowe-i-graficzne\\quiz\\Quizzer\\QuizModel\\QuizModel.csproj'. If you are using Visual Studio, this may be because the project is unloaded or not part of the current solution so run a restore from the command-line. Otherwise, the project file may be invalid or missing targets required for restore.",
+      "libraryId": "E:\\STUDIA\\programowanie-obiektowe-i-graficzne\\quiz\\Quizzer\\QuizModel\\QuizModel.csproj",
+      "targetGraphs": [
+        "net9.0-windows"
+      ]
+    }
+  ]
 }

@@ -1,158 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\matis\\Downloads\\quizzer-main\\quizzer-main\\QuizSolver_M\\QuizSolver_M.csproj": {}
+    "E:\\STUDIA\\programowanie-obiektowe-i-graficzne\\quiz\\Quizzer\\QuizSolver_M\\QuizSolver_M.csproj": {}
   },
   "projects": {
-    "C:\\Users\\matis\\Downloads\\quizzer-main\\quizzer-main\\QuizModel\\QuizModel.csproj": {
+    "E:\\STUDIA\\programowanie-obiektowe-i-graficzne\\quiz\\Quizzer\\QuizSolver_M\\QuizSolver_M.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\matis\\Downloads\\quizzer-main\\quizzer-main\\QuizModel\\QuizModel.csproj",
-        "projectName": "QuizModel",
-        "projectPath": "C:\\Users\\matis\\Downloads\\quizzer-main\\quizzer-main\\QuizModel\\QuizModel.csproj",
-        "packagesPath": "C:\\Users\\matis\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\matis\\Downloads\\quizzer-main\\quizzer-main\\QuizModel\\obj\\",
-        "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
-        "configFilePaths": [
-          "C:\\Users\\matis\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-        ],
-        "originalTargetFrameworks": [
-          "net9.0"
-        ],
-        "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "net9.0": {
-            "targetAlias": "net9.0",
-            "projectReferences": {}
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.300"
-      },
-      "frameworks": {
-        "net9.0": {
-          "targetAlias": "net9.0",
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48",
-            "net481"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.315/PortableRuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "C:\\Users\\matis\\Downloads\\quizzer-main\\quizzer-main\\QuizServices\\QuizServices.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\matis\\Downloads\\quizzer-main\\quizzer-main\\QuizServices\\QuizServices.csproj",
-        "projectName": "QuizServices",
-        "projectPath": "C:\\Users\\matis\\Downloads\\quizzer-main\\quizzer-main\\QuizServices\\QuizServices.csproj",
-        "packagesPath": "C:\\Users\\matis\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\matis\\Downloads\\quizzer-main\\quizzer-main\\QuizServices\\obj\\",
-        "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
-        "configFilePaths": [
-          "C:\\Users\\matis\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-        ],
-        "originalTargetFrameworks": [
-          "net9.0"
-        ],
-        "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "net9.0": {
-            "targetAlias": "net9.0",
-            "projectReferences": {
-              "C:\\Users\\matis\\Downloads\\quizzer-main\\quizzer-main\\QuizModel\\QuizModel.csproj": {
-                "projectPath": "C:\\Users\\matis\\Downloads\\quizzer-main\\quizzer-main\\QuizModel\\QuizModel.csproj"
-              }
-            }
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.300"
-      },
-      "frameworks": {
-        "net9.0": {
-          "targetAlias": "net9.0",
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48",
-            "net481"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.315/PortableRuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "C:\\Users\\matis\\Downloads\\quizzer-main\\quizzer-main\\QuizSolver_M\\QuizSolver_M.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\matis\\Downloads\\quizzer-main\\quizzer-main\\QuizSolver_M\\QuizSolver_M.csproj",
+        "projectUniqueName": "E:\\STUDIA\\programowanie-obiektowe-i-graficzne\\quiz\\Quizzer\\QuizSolver_M\\QuizSolver_M.csproj",
         "projectName": "QuizSolver_M",
-        "projectPath": "C:\\Users\\matis\\Downloads\\quizzer-main\\quizzer-main\\QuizSolver_M\\QuizSolver_M.csproj",
-        "packagesPath": "C:\\Users\\matis\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\matis\\Downloads\\quizzer-main\\quizzer-main\\QuizSolver_M\\obj\\",
+        "projectPath": "E:\\STUDIA\\programowanie-obiektowe-i-graficzne\\quiz\\Quizzer\\QuizSolver_M\\QuizSolver_M.csproj",
+        "packagesPath": "C:\\Users\\Dawid\\.nuget\\packages\\",
+        "outputPath": "E:\\STUDIA\\programowanie-obiektowe-i-graficzne\\quiz\\Quizzer\\QuizSolver_M\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\matis\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Dawid\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -163,14 +25,15 @@
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net9.0-windows7.0": {
+          "net9.0-windows": {
+            "framework": "net9.0-windows7.0",
             "targetAlias": "net9.0-windows",
             "projectReferences": {
-              "C:\\Users\\matis\\Downloads\\quizzer-main\\quizzer-main\\QuizModel\\QuizModel.csproj": {
-                "projectPath": "C:\\Users\\matis\\Downloads\\quizzer-main\\quizzer-main\\QuizModel\\QuizModel.csproj"
+              "E:\\STUDIA\\programowanie-obiektowe-i-graficzne\\quiz\\Quizzer\\QuizModel\\QuizModel.csproj": {
+                "projectPath": "E:\\STUDIA\\programowanie-obiektowe-i-graficzne\\quiz\\Quizzer\\QuizModel\\QuizModel.csproj"
               },
-              "C:\\Users\\matis\\Downloads\\quizzer-main\\quizzer-main\\QuizServices\\QuizServices.csproj": {
-                "projectPath": "C:\\Users\\matis\\Downloads\\quizzer-main\\quizzer-main\\QuizServices\\QuizServices.csproj"
+              "E:\\STUDIA\\programowanie-obiektowe-i-graficzne\\quiz\\Quizzer\\QuizServices\\QuizServices.csproj": {
+                "projectPath": "E:\\STUDIA\\programowanie-obiektowe-i-graficzne\\quiz\\Quizzer\\QuizServices\\QuizServices.csproj"
               }
             }
           }
@@ -185,10 +48,11 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.300"
+        "SdkAnalysisLevel": "10.0.300"
       },
       "frameworks": {
-        "net9.0-windows7.0": {
+        "net9.0-windows": {
+          "framework": "net9.0-windows7.0",
           "targetAlias": "net9.0-windows",
           "imports": [
             "net461",
@@ -201,15 +65,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            },
-            "Microsoft.WindowsDesktop.App.WindowsForms": {
-              "privateAssets": "none"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.315/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.300/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

@@ -20,3 +20,6 @@ C:\Users\matis\Downloads\quizzer-main\quizzer-main\QuizSolver_M\obj\Debug\net9.0
 C:\Users\matis\Downloads\quizzer-main\quizzer-main\QuizSolver_M\obj\Debug\net9.0-windows\QuizSolver_M.pdb
 C:\Users\matis\Downloads\quizzer-main\quizzer-main\QuizSolver_M\obj\Debug\net9.0-windows\QuizSolver_M.genruntimeconfig.cache
 C:\Users\matis\Downloads\quizzer-main\quizzer-main\QuizSolver_M\obj\Debug\net9.0-windows\ref\QuizSolver_M.dll
+E:\STUDIA\programowanie-obiektowe-i-graficzne\quiz\Quizzer\QuizSolver_M\obj\Debug\net9.0-windows\QuizSolver_M.dll
+E:\STUDIA\programowanie-obiektowe-i-graficzne\quiz\Quizzer\QuizSolver_M\obj\Debug\net9.0-windows\refint\QuizSolver_M.dll
+E:\STUDIA\programowanie-obiektowe-i-graficzne\quiz\Quizzer\QuizSolver_M\obj\Debug\net9.0-windows\QuizSolver_M.pdb
