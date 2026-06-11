@@ -132,6 +132,27 @@ tablicy, implementujące dodatkowo wzorzec obserwatora.
     \caption{Pełny diagram UML modelu obiektowego aplikacji}
 \end{figure}
 
+\subsubsection{Serwisy}
+
+W ramach pracy nad generatorem quizów zaimplementowaliśmy dwa serwisy, wykorzystywane
+przez wszystkie moduły naszego projektu. Pierwszym z nich jest \verb|QuizSerializer|,
+odpowiedzialny za zapis i odczyt quizu z pliku. Wykorzystuje wzorzec strategii, aby
+szyfrować serializowane dane. Wspierane obecnie metody szyfrowania to:
+
+\begin{itemize}
+    \item Plaintext (brak szyfrowania)
+    \item AES
+    \item 3DES (Triple DES)
+\end{itemize}
+
+\noindent
+Dzięki wzorcowi strategii system ten jest jednocześnie silnie rozszerzalny.
+
+Drugim wykorzystywanym przez nas serwisem jest \verb|EncryptionService|. Zaimplementowany
+jako singleton, udostępnia gotowe konfiguracje algorytmów AES oraz 3DES. Obecnie inicjalizuje
+je za pomocą sztucznych kluczy, w środowisku produkcyjnym należałoby je zamienić na sekrety
+aplikacji.
+
 \subsection{Moduł Rozwiązywania Quizu (Mateusz Szymczak)}
 
 Moduł \texttt{QuizSolver\_M} został zrealizowany zgodnie z wzorcem \textbf{MVP (Model-View-Presenter)},
