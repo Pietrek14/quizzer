@@ -406,8 +406,60 @@ public SingleQuestionView()
 \end{lstlisting}
 
 \subsection{Alternatywny Moduł Rozwiązania Quizu (Filip Kłos)}
-\textit{\todo{Tutaj należy opisać drugą aplikację do rozwiązywania quizu.}}
 
+Druga aplikacja, \texttt{QuizSolver}, służy do wczytywania i rozwiązywania quizów utworzonych w głównym generatorze. Aby zachować spójność kodu i uniknąć jego duplikacji, projekt wykorzystuje wspólne biblioteki klas: \texttt{QuizModel} (zawierającą definicje struktur danych) oraz \texttt{QuizServices} (odpowiadającą za logikę serializacji i kryptografii).
+
+\subsubsection{Architektura MVP}
+Architektura aplikacji opiera się na wzorcu projektowym \textbf{Model-View-Presenter (MVP)}.
+\begin{itemize}
+    \item \textbf{Model} --- wykorzystuje klasy domenowe takie jak \texttt{Quiz} oraz \texttt{Question} pochodzące ze współdzielonej biblioteki.
+    \item \textbf{View} --- opiera się na interfejsach, takich jak \texttt{ISingleQuestionView} oraz \texttt{IFileReaderView}, które są implementowane przez formularze WinForms. Widoki pełnią rolę pasywną i przekazują akcje użytkownika bezpośrednio do warstwy prezentera.
+    \item \textbf{Presenter} --- klasy takie jak \texttt{QuizSolverPresenter} subskrybują zdarzenia widoku, sterują przepływem aplikacji i zliczają punkty na koniec quizu.
+\end{itemize}
+
+\subsubsection{Wczytywanie i obsługa strategii z poziomu interfejsu}
+Widok \texttt{FileReaderView} umożliwia użytkownikowi wybór pliku oraz odpowiednich strategii (szyfrowania i punktacji) z rozwijanych list. Wybrane parametry trafiają do klasy \texttt{FileReaderPresenter}, która na ich podstawie tworzy odpowiednie obiekty i uruchamia główne okno quizu.
+
+\begin{lstlisting}[caption={Wybór strategii oceniania i uruchomienie quizu w FileReaderPresenter}]
+IScoringStrategy scoringStrategy = scoringStrategyName switch
+{
+    "Rygorystyczne" => new StrictScoringStrategy(),
+    "Częściowe" => new PartialScoringStrategy(),
+    _ => new StrictScoringStrategy()
+};
+
+var quizSolverPresenter = new QuizSolverPresenter(quizSolverView, loadedQuiz, scoringStrategy);
+\end{lstlisting}
+
+\subsubsection{Obsługa pytań wielokrotnego wyboru}
+Aplikacja zastępuje klasyczne kontrolki jednokrotnego wyboru komponentami typu \texttt{CheckBox}. Rozwiązanie to pozwala na zaznaczenie wielu poprawnych odpowiedzi w ramach jednego pytania. Zebrane indeksy zaznaczonych odpowiedzi są przesyłane do prezentera za pomocą dedykowanego zdarzenia \texttt{AnswerSubmitted}.
+
+\begin{lstlisting}[caption={Zbieranie odpowiedzi z kontrolek CheckBox w widoku}]
+List<int> selectedIndices = new List<int>();
+
+if (cbAnswer0.Checked) selectedIndices.Add(0);
+if (cbAnswer1.Checked) selectedIndices.Add(1);
+if (cbAnswer2.Checked) selectedIndices.Add(2);
+if (cbAnswer3.Checked) selectedIndices.Add(3);
+
+AnswerSubmitted?.Invoke(selectedIndices);
+\end{lstlisting}
+
+\subsubsection{Wzorzec Strategii w mechanizmie oceniania}
+W celu zapewnienia dużej elastyczności w sposobie obliczania punktów, w logice oceniającej zastosowano wzorzec \textbf{Strategia (Strategy Pattern)}. Zdefiniowano interfejs \texttt{IScoringStrategy} oraz dwie konkretne implementacje:
+
+\begin{enumerate}
+    \item \textbf{\texttt{StrictScoringStrategy} (Ocenianie rygorystyczne)} -- Przyznaje jeden punkt tylko w sytuacji, gdy użytkownik zaznaczy wszystkie poprawne odpowiedzi i nie zaznaczy żadnej odpowiedzi błędnej. Weryfikacja opiera się na metodach rozszerzających dostarczanych przez bibliotekę LINQ.
+    \item \textbf{\texttt{PartialScoringStrategy} (Ocenianie częściowe)} -- Przydziela punkty dodatnie za każdą poprawnie zaznaczoną odpowiedź, ale jednocześnie odejmuje punkty za zaznaczenie opcji błędnej, pilnując, aby końcowy wynik dla danego pytania nie przyjął wartości ujemnej.
+\end{enumerate}
+
+\begin{lstlisting}[caption={Implementacja rygorystycznego zliczania punktów przy użyciu LINQ}]
+// Sprawdzenie idealnego dopasowania zaznaczonych odpowiedzi
+bool isCorrect = (correctIndices.Count == selectedIndices.Count) &&
+                 !correctIndices.Except(selectedIndices).Any();
+
+return isCorrect ? 1 : 0;
+\end{lstlisting}
 
 \section{Wnioski}
 \begin{itemize}
