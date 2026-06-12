@@ -252,23 +252,6 @@ Po zakończeniu quizu użytkownik może przeglądać pytania z oznaczeniem kolor
     \item \textcolor{red}{\textbf{Czerwony}} --- zaznaczona, ale błędna.
 \end{itemize}
 
-Checkboxy pozostają wizualnie włączone (WinForms przy \texttt{Enabled = false} nadpisuje
-\texttt{ForeColor} na szary, co uniemożliwiałoby wyświetlenie kolorów), a blokada zmian
-realizowana jest przez flagę \texttt{\_quizEnded} w presenterze.
-
-\begin{lstlisting}
-private void OnEndQuiz()
-{
-    _timer.Stop();
-    _elapsed = DateTime.Now - _startTime;
-    _quizEnded = true;
-    _view.EnableEnd(false);
-    _view.EnableNavigation(true);
-    int score = CalculateScore();
-    ShowCorrectAnswers();
-    _view.ShowResult(score, _questions.Count, _elapsed);
-}
-\end{lstlisting}
 
 
 \subsection{Moduł Generatora Quizu (Dawid Piotrowski)}
